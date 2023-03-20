@@ -1,6 +1,5 @@
-package com.example.baemin.domain.restaurant.repository;
+package com.example.baemin.domain.restaurant;
 
-import com.example.baemin.domain.entity.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

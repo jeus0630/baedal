@@ -1,7 +1,5 @@
-package com.example.baemin.domain.restaurant.controller;
+package com.example.baemin.domain.restaurant;
 
-import com.example.baemin.domain.restaurant.dto.RestaurantDTO;
-import com.example.baemin.domain.restaurant.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,7 +18,7 @@ import java.util.List;
 @RequestMapping("/restaurants")
 @RequiredArgsConstructor
 public class RestaurantController {
-    
+
     private final RestaurantService restaurantService;
 
     @PostMapping("")

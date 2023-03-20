@@ -1,4 +1,4 @@
-package com.example.baemin.domain.category.dto;
+package com.example.baemin.domain.category;
 
 import lombok.Builder;
 import lombok.Getter;

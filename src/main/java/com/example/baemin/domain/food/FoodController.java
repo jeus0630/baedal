@@ -1,7 +1,5 @@
-package com.example.baemin.domain.food.controller;
+package com.example.baemin.domain.food;
 
-import com.example.baemin.domain.food.dto.FoodDto;
-import com.example.baemin.domain.food.service.FoodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

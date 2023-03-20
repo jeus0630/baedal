@@ -1,6 +1,5 @@
-package com.example.baemin.domain.food.repository;
+package com.example.baemin.domain.food;
 
-import com.example.baemin.domain.entity.Food;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

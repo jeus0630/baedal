@@ -1,7 +1,5 @@
-package com.example.baemin.domain.category.controller;
+package com.example.baemin.domain.category;
 
-import com.example.baemin.domain.category.dto.CategoryDTO;
-import com.example.baemin.domain.category.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
