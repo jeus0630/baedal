@@ -23,8 +23,7 @@ public class FoodController {
 
     @PostMapping("")
     public ResponseEntity<FoodDto.FoodCreateResponse> create(
-            @RequestBody FoodDto.FoodCreateRequest req
-    ) {
+            @RequestBody FoodDto.FoodCreateRequest req) {
         return ResponseEntity.created(URI.create("")).body(
                 foodService.create(req)
         );
@@ -43,8 +42,7 @@ public class FoodController {
     @PutMapping("/{id}")
     public ResponseEntity<FoodDto.FoodUpdateResponse> update(
             @PathVariable Long id,
-            @RequestBody FoodDto.FoodUpdateRequest req
-    ) {
+            @RequestBody FoodDto.FoodUpdateRequest req) {
         return ResponseEntity.ok(foodService.update(id, req));
     }
 

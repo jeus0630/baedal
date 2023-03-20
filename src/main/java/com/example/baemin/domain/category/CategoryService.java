@@ -24,14 +24,12 @@ public class CategoryService {
 
     public CategoryDTO.CategoryUpdateResponse update(
             Long id,
-            CategoryDTO.CategoryUpdateRequest req
-    ) {
+            CategoryDTO.CategoryUpdateRequest req) {
         return convertToCategoryUpdateResponse(updateCategoryFromRequest(id, req));
     }
 
     public CategoryDTO.CategoryDeleteResponse delete(
-            Long id
-    ) {
+            Long id) {
         deleteCategoryFromRequest(id);
         return convertToCategoryDeleteResponseDTO(id);
     }
@@ -62,8 +60,7 @@ public class CategoryService {
 
     private Category updateCategoryFromRequest(
             Long id,
-            CategoryDTO.CategoryUpdateRequest req
-    ) {
+            CategoryDTO.CategoryUpdateRequest req) {
         Category category = findCategoryById(id);
         category.setName(req.getName());
         return this.categoryRepository.save(category);
@@ -74,8 +71,7 @@ public class CategoryService {
     }
 
     private CategoryDTO.CategoryUpdateResponse convertToCategoryUpdateResponse(
-            Category category
-    ) {
+            Category category) {
         return CategoryDTO.CategoryUpdateResponse.builder()
                 .id(category.getId())
                 .name(category.getName())
@@ -83,8 +79,7 @@ public class CategoryService {
     }
 
     private void deleteCategoryFromRequest(
-            Long id
-    ) {
+            Long id) {
         this.categoryRepository.delete(findCategoryById(id));
     }
 

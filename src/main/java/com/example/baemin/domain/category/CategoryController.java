@@ -23,8 +23,7 @@ public class CategoryController {
 
     @PostMapping("")
     public ResponseEntity<CategoryDTO.CategoryCreateResponse> create(
-            @RequestBody CategoryDTO.CategoryCreateRequest req
-    ) {
+            @RequestBody CategoryDTO.CategoryCreateRequest req) {
         CategoryDTO.CategoryCreateResponse res = this.categoryService.create(req);
 
         return ResponseEntity.created(URI.create("/" + res.getId())).body(res);
