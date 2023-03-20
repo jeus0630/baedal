@@ -1,7 +1,5 @@
-package com.example.baemin.api.healthCheck.controller;
+package com.example.baemin.api.healthCheck;
 
-import com.example.baemin.api.healthCheck.dto.HealthCheckDTO;
-import com.example.baemin.api.healthCheck.service.HealthCheckService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

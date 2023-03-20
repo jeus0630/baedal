@@ -1,4 +1,4 @@
-package com.example.baemin.api.healthCheck.dto;
+package com.example.baemin.api.healthCheck;
 
 import lombok.Builder;
 import lombok.Getter;

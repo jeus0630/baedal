@@ -1,6 +1,5 @@
-package com.example.baemin.api.healthCheck.service;
+package com.example.baemin.api.healthCheck;
 
-import com.example.baemin.api.healthCheck.dto.HealthCheckDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;

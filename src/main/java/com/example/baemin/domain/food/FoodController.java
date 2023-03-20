@@ -32,7 +32,7 @@ public class FoodController {
 
     @GetMapping("")
     public ResponseEntity<List<FoodDto.FoodReadResponse>> read() {
-        return ResponseEntity.ok(this.foodService.read());
+        return ResponseEntity.ok(foodService.read());
     }
 
     @GetMapping("/{id}")
