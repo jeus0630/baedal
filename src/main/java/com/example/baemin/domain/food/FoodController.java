@@ -35,6 +35,11 @@ public class FoodController {
         return ResponseEntity.ok(this.foodService.read());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<FoodDto.FoodReadResponse> read(@PathVariable Long id) {
+        return ResponseEntity.ok(foodService.read(id));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<FoodDto.FoodUpdateResponse> update(
             @PathVariable Long id,

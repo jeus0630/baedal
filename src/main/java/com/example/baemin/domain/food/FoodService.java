@@ -30,6 +30,10 @@ public class FoodService {
                 .collect(Collectors.toList());
     }
 
+    public FoodDto.FoodReadResponse read(Long id) {
+        return convertToFoodReadResponseDTO(findFoodFromRequest(id));
+    }
+
     public FoodDto.FoodUpdateResponse update(Long id, FoodDto.FoodUpdateRequest req) {
         return convertToFoodUpdateResponseDTO(
                 updateFoodFromRequest(findFoodFromRequest(id), req)
