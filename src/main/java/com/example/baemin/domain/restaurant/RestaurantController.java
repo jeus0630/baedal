@@ -1,7 +1,5 @@
-package com.example.baemin.domain.restaurant.controller;
+package com.example.baemin.domain.restaurant;
 
-import com.example.baemin.domain.restaurant.dto.RestaurantDTO;
-import com.example.baemin.domain.restaurant.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,7 +18,7 @@ import java.util.List;
 @RequestMapping("/restaurants")
 @RequiredArgsConstructor
 public class RestaurantController {
-    
+
     private final RestaurantService restaurantService;
 
     @PostMapping("")
@@ -37,15 +35,13 @@ public class RestaurantController {
     @PutMapping("/{id}")
     public ResponseEntity<RestaurantDTO.RestaurantUpdateResponse> update(
             @PathVariable Long id,
-            @RequestBody RestaurantDTO.RestaurantUpdateRequest req
-    ) {
+            @RequestBody RestaurantDTO.RestaurantUpdateRequest req) {
         return ResponseEntity.ok(this.restaurantService.update(id, req));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<RestaurantDTO.RestaurantDeleteResponse> delete(
-            @PathVariable Long id
-    ) {
+            @PathVariable Long id) {
         return ResponseEntity.ok(this.restaurantService.delete(id));
     }
 

@@ -1,4 +1,4 @@
-package com.example.baemin.domain.restaurant.dto;
+package com.example.baemin.domain.restaurant;
 
 import lombok.Builder;
 import lombok.Getter;

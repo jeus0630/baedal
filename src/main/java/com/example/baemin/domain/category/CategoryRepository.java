@@ -1,6 +1,5 @@
-package com.example.baemin.domain.category.repository;
+package com.example.baemin.domain.category;
 
-import com.example.baemin.domain.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,8 +1,5 @@
-package com.example.baemin.domain.restaurant.service;
+package com.example.baemin.domain.restaurant;
 
-import com.example.baemin.domain.entity.Restaurant;
-import com.example.baemin.domain.restaurant.dto.RestaurantDTO;
-import com.example.baemin.domain.restaurant.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,5 @@
-package com.example.baemin.domain.food.controller;
+package com.example.baemin.domain.food;
 
-import com.example.baemin.domain.food.dto.FoodDto;
-import com.example.baemin.domain.food.service.FoodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,8 +23,7 @@ public class FoodController {
 
     @PostMapping("")
     public ResponseEntity<FoodDto.FoodCreateResponse> create(
-            @RequestBody FoodDto.FoodCreateRequest req
-    ) {
+            @RequestBody FoodDto.FoodCreateRequest req) {
         return ResponseEntity.created(URI.create("")).body(
                 foodService.create(req)
         );
@@ -34,14 +31,18 @@ public class FoodController {
 
     @GetMapping("")
     public ResponseEntity<List<FoodDto.FoodReadResponse>> read() {
-        return ResponseEntity.ok(this.foodService.read());
+        return ResponseEntity.ok(foodService.read());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<FoodDto.FoodReadResponse> read(@PathVariable Long id) {
+        return ResponseEntity.ok(foodService.read(id));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<FoodDto.FoodUpdateResponse> update(
             @PathVariable Long id,
-            @RequestBody FoodDto.FoodUpdateRequest req
-    ) {
+            @RequestBody FoodDto.FoodUpdateRequest req) {
         return ResponseEntity.ok(foodService.update(id, req));
     }
 

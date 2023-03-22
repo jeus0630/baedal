@@ -1,7 +1,5 @@
-package com.example.baemin.domain.category.controller;
+package com.example.baemin.domain.category;
 
-import com.example.baemin.domain.category.dto.CategoryDTO;
-import com.example.baemin.domain.category.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,8 +23,7 @@ public class CategoryController {
 
     @PostMapping("")
     public ResponseEntity<CategoryDTO.CategoryCreateResponse> create(
-            @RequestBody CategoryDTO.CategoryCreateRequest req
-    ) {
+            @RequestBody CategoryDTO.CategoryCreateRequest req) {
         CategoryDTO.CategoryCreateResponse res = this.categoryService.create(req);
 
         return ResponseEntity.created(URI.create("/" + res.getId())).body(res);

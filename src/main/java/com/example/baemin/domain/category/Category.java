@@ -1,5 +1,7 @@
-package com.example.baemin.domain.entity;
+package com.example.baemin.domain.category;
 
+import com.example.baemin.domain.common.BaseEntity;
+import com.example.baemin.domain.food.Food;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,19 +13,16 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
 
 import java.util.List;
 
 @Entity
-@DynamicInsert
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Restaurant extends Base {
+public class Category extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,13 +30,6 @@ public class Restaurant extends Base {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String location;
-
-    @ColumnDefault("true")
-    private Boolean isActive;
-
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "category")
     private List<Food> food;
-
 }

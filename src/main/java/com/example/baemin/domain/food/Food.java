@@ -1,5 +1,8 @@
-package com.example.baemin.domain.entity;
+package com.example.baemin.domain.food;
 
+import com.example.baemin.domain.category.Category;
+import com.example.baemin.domain.common.BaseEntity;
+import com.example.baemin.domain.restaurant.Restaurant;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +25,7 @@ import org.hibernate.annotations.DynamicInsert;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Food extends Base {
+public class Food extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

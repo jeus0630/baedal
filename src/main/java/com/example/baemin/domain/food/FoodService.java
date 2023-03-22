@@ -1,12 +1,9 @@
-package com.example.baemin.domain.food.service;
+package com.example.baemin.domain.food;
 
-import com.example.baemin.domain.category.repository.CategoryRepository;
-import com.example.baemin.domain.entity.Category;
-import com.example.baemin.domain.entity.Food;
-import com.example.baemin.domain.entity.Restaurant;
-import com.example.baemin.domain.food.dto.FoodDto;
-import com.example.baemin.domain.food.repository.FoodRepository;
-import com.example.baemin.domain.restaurant.repository.RestaurantRepository;
+import com.example.baemin.domain.category.Category;
+import com.example.baemin.domain.category.CategoryRepository;
+import com.example.baemin.domain.restaurant.Restaurant;
+import com.example.baemin.domain.restaurant.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +28,10 @@ public class FoodService {
         return this.foodRepository.findAllByIsActive(true).stream()
                 .map(food -> convertToFoodReadResponseDTO(food))
                 .collect(Collectors.toList());
+    }
+
+    public FoodDto.FoodReadResponse read(Long id) {
+        return convertToFoodReadResponseDTO(findFoodFromRequest(id));
     }
 
     public FoodDto.FoodUpdateResponse update(Long id, FoodDto.FoodUpdateRequest req) {
