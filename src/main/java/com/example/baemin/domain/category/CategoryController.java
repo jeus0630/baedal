@@ -22,27 +22,27 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping("")
-    public ResponseEntity<CategoryDTO.CategoryCreateResponse> create(
-            @RequestBody CategoryDTO.CategoryCreateRequest req) {
-        CategoryDTO.CategoryCreateResponse res = this.categoryService.create(req);
+    public ResponseEntity<CategoryDTO.Response> create(
+            @RequestBody CategoryDTO.Request req) {
+        CategoryDTO.Response res = this.categoryService.create(req);
 
         return ResponseEntity.created(URI.create("/" + res.getId())).body(res);
     }
 
     @GetMapping("")
-    public ResponseEntity<List<CategoryDTO.CategoryReadResponse>> read() {
+    public ResponseEntity<List<CategoryDTO.Response>> read() {
         return ResponseEntity.ok(this.categoryService.read());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryDTO.CategoryUpdateResponse> update(
+    public ResponseEntity<CategoryDTO.Response> update(
             @PathVariable Long id,
-            @RequestBody CategoryDTO.CategoryUpdateRequest req) {
+            @RequestBody CategoryDTO.Request req) {
         return ResponseEntity.ok(this.categoryService.update(id, req));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<CategoryDTO.CategoryDeleteResponse> delete(@PathVariable Long id) {
+    public ResponseEntity<CategoryDTO.DeleteResponse> delete(@PathVariable Long id) {
         return ResponseEntity.ok(this.categoryService.delete(id));
     }
 

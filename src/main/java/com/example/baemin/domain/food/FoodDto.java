@@ -6,7 +6,7 @@ import lombok.Getter;
 public class FoodDto {
 
     @Getter
-    public static class FoodCreateRequest {
+    public static class Request {
         private String name;
         private Integer price;
         private Long categoryId;
@@ -15,7 +15,7 @@ public class FoodDto {
 
     @Getter
     @Builder
-    public static class FoodCreateResponse {
+    public static class Response {
         private Long id;
         private String name;
         private Integer price;
@@ -25,35 +25,7 @@ public class FoodDto {
 
     @Getter
     @Builder
-    public static class FoodReadResponse {
-        private Long id;
-        private String name;
-        private Integer price;
-        private Long categoryId;
-        private Long restaurantId;
-    }
-
-    @Getter
-    public static class FoodUpdateRequest {
-        private String name;
-        private Integer price;
-        private Long categoryId;
-        private Long restaurantId;
-    }
-
-    @Getter
-    @Builder
-    public static class FoodUpdateResponse {
-        private Long id;
-        private String name;
-        private Integer price;
-        private Long categoryId;
-        private Long restaurantId;
-    }
-
-    @Getter
-    @Builder
-    public static class FoodDeleteResponse {
+    public static class DeleteResponse {
         private Long id;
     }
 }

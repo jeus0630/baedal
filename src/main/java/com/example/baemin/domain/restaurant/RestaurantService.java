@@ -12,25 +12,25 @@ public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
 
-    public RestaurantDTO.RestaurantCreateResponse create(RestaurantDTO.RestaurantCreateRequest req) {
-        return convertToRestaurantCreateResponseDTO(createRestaurantFromRequest(req));
+    public RestaurantDTO.Response create(RestaurantDTO.Request req) {
+        return convertToResponseDTO(createRestaurantFromRequest(req));
     }
 
-    public List<RestaurantDTO.RestaurantReadResponse> read() {
+    public List<RestaurantDTO.Response> read() {
         return readRestaurantFromRequest().stream().map(
-                restaurant -> convertToRestaurantReadResponseDTO(restaurant)
+                restaurant -> convertToResponseDTO(restaurant)
         ).collect(Collectors.toList());
     }
 
-    public RestaurantDTO.RestaurantUpdateResponse update(Long id, RestaurantDTO.RestaurantUpdateRequest req) {
-        return convertToRestaurantUpdateResponseDTO(updateRestaurantFromRequest(id, req));
+    public RestaurantDTO.Response update(Long id, RestaurantDTO.Request req) {
+        return convertToResponseDTO(updateRestaurantFromRequest(id, req));
     }
 
-    public RestaurantDTO.RestaurantDeleteResponse delete(Long id) {
-        return convertToRestaurantDeleteResponseDTO(deleteRestaurantFromRequest(id));
+    public RestaurantDTO.DeleteResponse delete(Long id) {
+        return convertToDeleteResponseDTO(deleteRestaurantFromRequest(id));
     }
 
-    private Restaurant createRestaurantFromRequest(RestaurantDTO.RestaurantCreateRequest req) {
+    private Restaurant createRestaurantFromRequest(RestaurantDTO.Request req) {
         return this.restaurantRepository.save(
                 Restaurant.builder()
                         .name(req.getName())
@@ -39,20 +39,12 @@ public class RestaurantService {
         );
     }
 
-    private RestaurantDTO.RestaurantCreateResponse convertToRestaurantCreateResponseDTO(Restaurant restaurant) {
-        return RestaurantDTO.RestaurantCreateResponse.builder()
-                .id(restaurant.getId())
-                .name(restaurant.getName())
-                .location(restaurant.getLocation())
-                .build();
-    }
-
     private List<Restaurant> readRestaurantFromRequest() {
         return this.restaurantRepository.findAllByIsActive(true);
     }
 
-    private RestaurantDTO.RestaurantReadResponse convertToRestaurantReadResponseDTO(Restaurant restaurant) {
-        return RestaurantDTO.RestaurantReadResponse.builder()
+    private RestaurantDTO.Response convertToResponseDTO(Restaurant restaurant) {
+        return RestaurantDTO.Response.builder()
                 .id(restaurant.getId())
                 .name(restaurant.getName())
                 .location(restaurant.getLocation())
@@ -63,19 +55,11 @@ public class RestaurantService {
         return this.restaurantRepository.findById(id).get();
     }
 
-    private Restaurant updateRestaurantFromRequest(Long id, RestaurantDTO.RestaurantUpdateRequest req) {
+    private Restaurant updateRestaurantFromRequest(Long id, RestaurantDTO.Request req) {
         Restaurant restaurant = findRestaurantById(id);
         restaurant.setName(req.getName());
         restaurant.setLocation(req.getLocation());
         return this.restaurantRepository.save(restaurant);
-    }
-
-    private RestaurantDTO.RestaurantUpdateResponse convertToRestaurantUpdateResponseDTO(Restaurant restaurant) {
-        return RestaurantDTO.RestaurantUpdateResponse.builder()
-                .id(restaurant.getId())
-                .name(restaurant.getName())
-                .location(restaurant.getLocation())
-                .build();
     }
 
     private Restaurant deleteRestaurantFromRequest(Long id) {
@@ -84,8 +68,8 @@ public class RestaurantService {
         return this.restaurantRepository.save(restaurant);
     }
 
-    private RestaurantDTO.RestaurantDeleteResponse convertToRestaurantDeleteResponseDTO(Restaurant restaurant) {
-        return RestaurantDTO.RestaurantDeleteResponse.builder()
+    private RestaurantDTO.DeleteResponse convertToDeleteResponseDTO(Restaurant restaurant) {
+        return RestaurantDTO.DeleteResponse.builder()
                 .id(restaurant.getId())
                 .build();
     }

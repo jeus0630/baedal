@@ -18,35 +18,35 @@ public class FoodService {
     private final CategoryRepository categoryRepository;
     private final RestaurantRepository restaurantRepository;
 
-    public FoodDto.FoodCreateResponse create(FoodDto.FoodCreateRequest req) {
-        return convertToFoodCreateResponseDTO(
+    public FoodDto.Response create(FoodDto.Request req) {
+        return convertToResponseDTO(
                 this.foodRepository.save(createFoodFromRequest(req))
         );
     }
 
-    public List<FoodDto.FoodReadResponse> read() {
+    public List<FoodDto.Response> read() {
         return this.foodRepository.findAllByIsActive(true).stream()
-                .map(food -> convertToFoodReadResponseDTO(food))
+                .map(food -> convertToResponseDTO(food))
                 .collect(Collectors.toList());
     }
 
-    public FoodDto.FoodReadResponse read(Long id) {
-        return convertToFoodReadResponseDTO(findFoodFromRequest(id));
+    public FoodDto.Response read(Long id) {
+        return convertToResponseDTO(findFoodFromRequest(id));
     }
 
-    public FoodDto.FoodUpdateResponse update(Long id, FoodDto.FoodUpdateRequest req) {
-        return convertToFoodUpdateResponseDTO(
+    public FoodDto.Response update(Long id, FoodDto.Request req) {
+        return convertToResponseDTO(
                 updateFoodFromRequest(findFoodFromRequest(id), req)
         );
     }
 
-    public FoodDto.FoodDeleteResponse delete(Long id) {
-        return convertToFoodDeleteResponseDTO(
+    public FoodDto.DeleteResponse delete(Long id) {
+        return convertToDeleteResponseDTO(
                 deleteFoodFromRequest(findFoodFromRequest(id))
         );
     }
 
-    private Food createFoodFromRequest(FoodDto.FoodCreateRequest req) {
+    private Food createFoodFromRequest(FoodDto.Request req) {
         return Food.builder()
                 .name(req.getName())
                 .price(req.getPrice())
@@ -67,7 +67,7 @@ public class FoodService {
         return this.restaurantRepository.findById(id).get();
     }
 
-    private Food updateFoodFromRequest(Food food, FoodDto.FoodUpdateRequest req) {
+    private Food updateFoodFromRequest(Food food, FoodDto.Request req) {
         food.setName(req.getName());
         food.setPrice(req.getPrice());
         food.setCategory(findCategoryById(req.getCategoryId()));
@@ -81,8 +81,8 @@ public class FoodService {
         return foodRepository.save(food);
     }
 
-    private FoodDto.FoodCreateResponse convertToFoodCreateResponseDTO(Food food) {
-        return FoodDto.FoodCreateResponse.builder()
+    private FoodDto.Response convertToResponseDTO(Food food) {
+        return FoodDto.Response.builder()
                 .id(food.getId())
                 .name(food.getName())
                 .price(food.getPrice())
@@ -91,28 +91,8 @@ public class FoodService {
                 .build();
     }
 
-    private FoodDto.FoodReadResponse convertToFoodReadResponseDTO(Food food) {
-        return FoodDto.FoodReadResponse.builder()
-                .id(food.getId())
-                .name(food.getName())
-                .price(food.getPrice())
-                .categoryId(food.getCategory().getId())
-                .restaurantId(food.getRestaurant().getId())
-                .build();
-    }
-
-    private FoodDto.FoodUpdateResponse convertToFoodUpdateResponseDTO(Food food) {
-        return FoodDto.FoodUpdateResponse.builder()
-                .id(food.getId())
-                .name(food.getName())
-                .price(food.getPrice())
-                .categoryId(food.getCategory().getId())
-                .restaurantId(food.getRestaurant().getId())
-                .build();
-    }
-
-    private FoodDto.FoodDeleteResponse convertToFoodDeleteResponseDTO(Food food) {
-        return FoodDto.FoodDeleteResponse.builder()
+    private FoodDto.DeleteResponse convertToDeleteResponseDTO(Food food) {
+        return FoodDto.DeleteResponse.builder()
                 .id(food.getId())
                 .build();
     }

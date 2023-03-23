@@ -6,14 +6,14 @@ import lombok.Getter;
 public class RestaurantDTO {
 
     @Getter
-    public static class RestaurantCreateRequest {
+    public static class Request {
         private String name;
         private String location;
     }
 
     @Getter
     @Builder
-    public static class RestaurantCreateResponse {
+    public static class Response {
         private Long id;
         private String name;
         private String location;
@@ -21,29 +21,7 @@ public class RestaurantDTO {
 
     @Getter
     @Builder
-    public static class RestaurantReadResponse {
-        private Long id;
-        private String name;
-        private String location;
-    }
-
-    @Getter
-    public static class RestaurantUpdateRequest {
-        private String name;
-        private String location;
-    }
-
-    @Getter
-    @Builder
-    public static class RestaurantUpdateResponse {
-        private Long id;
-        private String name;
-        private String location;
-    }
-
-    @Getter
-    @Builder
-    public static class RestaurantDeleteResponse {
+    public static class DeleteResponse {
         private Long id;
     }
 }

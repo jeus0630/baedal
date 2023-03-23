@@ -6,39 +6,21 @@ import lombok.Getter;
 public class CategoryDTO {
 
     @Getter
-    public static class CategoryCreateRequest {
+    public static class Request {
         private String name;
     }
 
     @Getter
     @Builder
-    public static class CategoryCreateResponse {
+    public static class Response {
         private Long id;
         private String name;
     }
 
     @Getter
     @Builder
-    public static class CategoryReadResponse {
-        private Long id;
-        private String name;
-    }
-
-    @Getter
-    public static class CategoryUpdateRequest {
-        private String name;
-    }
-
-    @Getter
-    @Builder
-    public static class CategoryUpdateResponse {
-        private Long id;
-        private String name;
-    }
-
-    @Getter
-    @Builder
-    public static class CategoryDeleteResponse {
+    public static class DeleteResponse {
         private Long id;
     }
+
 }
