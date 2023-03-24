@@ -22,25 +22,25 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
 
     @PostMapping("")
-    public ResponseEntity<RestaurantDTO.RestaurantCreateResponse> create(@RequestBody RestaurantDTO.RestaurantCreateRequest req) {
-        RestaurantDTO.RestaurantCreateResponse res = this.restaurantService.create(req);
+    public ResponseEntity<RestaurantDTO.Response> create(@RequestBody RestaurantDTO.Request req) {
+        RestaurantDTO.Response res = this.restaurantService.create(req);
         return ResponseEntity.created(URI.create("" + res.getId())).body(res);
     }
 
     @GetMapping("")
-    public ResponseEntity<List<RestaurantDTO.RestaurantReadResponse>> read() {
+    public ResponseEntity<List<RestaurantDTO.Response>> read() {
         return ResponseEntity.ok(this.restaurantService.read());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RestaurantDTO.RestaurantUpdateResponse> update(
+    public ResponseEntity<RestaurantDTO.Response> update(
             @PathVariable Long id,
-            @RequestBody RestaurantDTO.RestaurantUpdateRequest req) {
+            @RequestBody RestaurantDTO.Request req) {
         return ResponseEntity.ok(this.restaurantService.update(id, req));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<RestaurantDTO.RestaurantDeleteResponse> delete(
+    public ResponseEntity<RestaurantDTO.DeleteResponse> delete(
             @PathVariable Long id) {
         return ResponseEntity.ok(this.restaurantService.delete(id));
     }

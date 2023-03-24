@@ -12,36 +12,35 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    public CategoryDTO.CategoryCreateResponse create(CategoryDTO.CategoryCreateRequest req) {
-        return convertToCategoryCreateResponseDTO(createCategoryFromRequest(req));
+    public CategoryDTO.Response create(CategoryDTO.Request req) {
+        return convertToResponseDTO(createCategoryFromRequest(req));
     }
 
-    public List<CategoryDTO.CategoryReadResponse> read() {
+    public List<CategoryDTO.Response> read() {
         return readCategoryFromRequest().stream().map(
-                category -> convertToCategoryReadResponse(category)
+                category -> convertToResponseDTO(category)
         ).collect(Collectors.toList());
     }
 
-    public CategoryDTO.CategoryUpdateResponse update(
+    public CategoryDTO.Response update(
             Long id,
-            CategoryDTO.CategoryUpdateRequest req) {
-        return convertToCategoryUpdateResponse(updateCategoryFromRequest(id, req));
+            CategoryDTO.Request req) {
+        return convertToResponseDTO(updateCategoryFromRequest(id, req));
     }
 
-    public CategoryDTO.CategoryDeleteResponse delete(
-            Long id) {
+    public CategoryDTO.DeleteResponse delete(Long id) {
         deleteCategoryFromRequest(id);
-        return convertToCategoryDeleteResponseDTO(id);
+        return convertToDeleteResponseDTO(id);
     }
 
-    private Category createCategoryFromRequest(CategoryDTO.CategoryCreateRequest req) {
+    private Category createCategoryFromRequest(CategoryDTO.Request req) {
         return this.categoryRepository.save(Category.builder()
                 .name(req.getName())
                 .build());
     }
 
-    private CategoryDTO.CategoryCreateResponse convertToCategoryCreateResponseDTO(Category category) {
-        return CategoryDTO.CategoryCreateResponse.builder()
+    private CategoryDTO.Response convertToResponseDTO(Category category) {
+        return CategoryDTO.Response.builder()
                 .id(category.getId())
                 .name(category.getName())
                 .build();
@@ -51,16 +50,9 @@ public class CategoryService {
         return this.categoryRepository.findAll();
     }
 
-    private CategoryDTO.CategoryReadResponse convertToCategoryReadResponse(Category category) {
-        return CategoryDTO.CategoryReadResponse.builder()
-                .id(category.getId())
-                .name(category.getName())
-                .build();
-    }
-
     private Category updateCategoryFromRequest(
             Long id,
-            CategoryDTO.CategoryUpdateRequest req) {
+            CategoryDTO.Request req) {
         Category category = findCategoryById(id);
         category.setName(req.getName());
         return this.categoryRepository.save(category);
@@ -70,23 +62,13 @@ public class CategoryService {
         return this.categoryRepository.findById(id).get();
     }
 
-    private CategoryDTO.CategoryUpdateResponse convertToCategoryUpdateResponse(
-            Category category) {
-        return CategoryDTO.CategoryUpdateResponse.builder()
-                .id(category.getId())
-                .name(category.getName())
-                .build();
-    }
-
-    private void deleteCategoryFromRequest(
-            Long id) {
+    private void deleteCategoryFromRequest(Long id) {
         this.categoryRepository.delete(findCategoryById(id));
     }
 
-    private CategoryDTO.CategoryDeleteResponse convertToCategoryDeleteResponseDTO(Long id) {
-        return CategoryDTO.CategoryDeleteResponse.builder()
+    private CategoryDTO.DeleteResponse convertToDeleteResponseDTO(Long id) {
+        return CategoryDTO.DeleteResponse.builder()
                 .id(id)
                 .build();
     }
-
 }

@@ -22,32 +22,32 @@ public class FoodController {
     private final FoodService foodService;
 
     @PostMapping("")
-    public ResponseEntity<FoodDto.FoodCreateResponse> create(
-            @RequestBody FoodDto.FoodCreateRequest req) {
+    public ResponseEntity<FoodDto.Response> create(
+            @RequestBody FoodDto.Request req) {
         return ResponseEntity.created(URI.create("")).body(
                 foodService.create(req)
         );
     }
 
     @GetMapping("")
-    public ResponseEntity<List<FoodDto.FoodReadResponse>> read() {
+    public ResponseEntity<List<FoodDto.Response>> read() {
         return ResponseEntity.ok(foodService.read());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FoodDto.FoodReadResponse> read(@PathVariable Long id) {
+    public ResponseEntity<FoodDto.Response> read(@PathVariable Long id) {
         return ResponseEntity.ok(foodService.read(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FoodDto.FoodUpdateResponse> update(
+    public ResponseEntity<FoodDto.Response> update(
             @PathVariable Long id,
-            @RequestBody FoodDto.FoodUpdateRequest req) {
+            @RequestBody FoodDto.Request req) {
         return ResponseEntity.ok(foodService.update(id, req));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<FoodDto.FoodDeleteResponse> delete(@PathVariable Long id) {
+    public ResponseEntity<FoodDto.DeleteResponse> delete(@PathVariable Long id) {
         return ResponseEntity.ok(foodService.delete(id));
     }
 
