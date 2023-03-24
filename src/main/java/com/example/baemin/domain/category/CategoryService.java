@@ -13,11 +13,11 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
     public CategoryDTO.Response create(CategoryDTO.Request req) {
-        return convertToResponseDTO(createCategoryFromRequest(req));
+        return convertToResponseDTO(createCategory(req));
     }
 
     public List<CategoryDTO.Response> read() {
-        return readCategoryFromRequest().stream().map(
+        return readCategory().stream().map(
                 category -> convertToResponseDTO(category)
         ).collect(Collectors.toList());
     }
@@ -25,18 +25,16 @@ public class CategoryService {
     public CategoryDTO.Response update(
             Long id,
             CategoryDTO.Request req) {
-        return convertToResponseDTO(updateCategoryFromRequest(id, req));
+        return convertToResponseDTO(updateCategory(id, req));
     }
 
     public CategoryDTO.DeleteResponse delete(Long id) {
-        deleteCategoryFromRequest(id);
+        deleteCategory(id);
         return convertToDeleteResponseDTO(id);
     }
 
-    private Category createCategoryFromRequest(CategoryDTO.Request req) {
-        return this.categoryRepository.save(Category.builder()
-                .name(req.getName())
-                .build());
+    private Category createCategory(CategoryDTO.Request req) {
+        return categoryRepository.save(req.toEntity());
     }
 
     private CategoryDTO.Response convertToResponseDTO(Category category) {
@@ -46,24 +44,22 @@ public class CategoryService {
                 .build();
     }
 
-    private List<Category> readCategoryFromRequest() {
-        return this.categoryRepository.findAll();
+    private List<Category> readCategory() {
+        return categoryRepository.findAll();
     }
 
-    private Category updateCategoryFromRequest(
+    private Category updateCategory(
             Long id,
             CategoryDTO.Request req) {
-        Category category = findCategoryById(id);
-        category.setName(req.getName());
-        return this.categoryRepository.save(category);
+        return categoryRepository.save(req.toEntity(id));
     }
 
     private Category findCategoryById(Long id) {
-        return this.categoryRepository.findById(id).get();
+        return categoryRepository.findById(id).get();
     }
 
-    private void deleteCategoryFromRequest(Long id) {
-        this.categoryRepository.delete(findCategoryById(id));
+    private void deleteCategory(Long id) {
+        categoryRepository.delete(findCategoryById(id));
     }
 
     private CategoryDTO.DeleteResponse convertToDeleteResponseDTO(Long id) {

@@ -8,6 +8,19 @@ public class CategoryDTO {
     @Getter
     public static class Request {
         private String name;
+
+        public Category toEntity(Long id) {
+            return Category.builder()
+                    .id(id)
+                    .name(name)
+                    .build();
+        }
+
+        public Category toEntity() {
+            return Category.builder()
+                    .name(name)
+                    .build();
+        }
     }
 
     @Getter
@@ -22,5 +35,4 @@ public class CategoryDTO {
     public static class DeleteResponse {
         private Long id;
     }
-
 }
