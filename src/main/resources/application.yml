@@ -1,6 +1,7 @@
-#server:
-#  servlet:
-#    contextPath: /api
+server:
+  port: 8080
+  servlet:
+    contextPath: /api
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
@@ -16,6 +17,10 @@ spring:
         format_sql: true
         default_batch_fetch_size: 500
     open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
 logging:
   level:
     org.hibernate.type: trace
