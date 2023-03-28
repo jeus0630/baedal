@@ -13,11 +13,11 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
     public CategoryDTO.Response create(CategoryDTO.Request req) {
-        return convertToResponseDTO(createCategory(req));
+        return convertToResponseDTO(categoryRepository.save(req.toEntity()));
     }
 
     public List<CategoryDTO.Response> read() {
-        return readCategory().stream().map(
+        return categoryRepository.findAll().stream().map(
                 category -> convertToResponseDTO(category)
         ).collect(Collectors.toList());
     }
@@ -25,7 +25,7 @@ public class CategoryService {
     public CategoryDTO.Response update(
             Long id,
             CategoryDTO.Request req) {
-        return convertToResponseDTO(updateCategory(id, req));
+        return convertToResponseDTO(categoryRepository.save(req.toEntity(id)));
     }
 
     public CategoryDTO.DeleteResponse delete(Long id) {
@@ -33,25 +33,11 @@ public class CategoryService {
         return convertToDeleteResponseDTO(id);
     }
 
-    private Category createCategory(CategoryDTO.Request req) {
-        return categoryRepository.save(req.toEntity());
-    }
-
     private CategoryDTO.Response convertToResponseDTO(Category category) {
         return CategoryDTO.Response.builder()
                 .id(category.getId())
                 .name(category.getName())
                 .build();
-    }
-
-    private List<Category> readCategory() {
-        return categoryRepository.findAll();
-    }
-
-    private Category updateCategory(
-            Long id,
-            CategoryDTO.Request req) {
-        return categoryRepository.save(req.toEntity(id));
     }
 
     private Category findCategoryById(Long id) {
