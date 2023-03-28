@@ -1,6 +1,7 @@
 package com.example.baemin.domain.category;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +14,9 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
     public CategoryDTO.Response create(CategoryDTO.Request req) {
-        return convertToResponseDTO(categoryRepository.save(req.toEntity()));
+        CategoryDTO.Response response = new CategoryDTO.Response();
+        BeanUtils.copyProperties(categoryRepository.save(req.toEntity()), new CategoryDTO.Response());
+        return response;
     }
 
     public List<CategoryDTO.Response> read() {
