@@ -15,7 +15,7 @@ public class CategoryService {
 
     public CategoryDTO.Response create(CategoryDTO.Request req) {
         CategoryDTO.Response response = new CategoryDTO.Response();
-        BeanUtils.copyProperties(categoryRepository.save(req.toEntity()), new CategoryDTO.Response());
+        BeanUtils.copyProperties(categoryRepository.save(req.toEntity()), response);
         return response;
     }
 
