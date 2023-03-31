@@ -14,9 +14,7 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
     public CategoryDTO.Response create(CategoryDTO.Request req) {
-        CategoryDTO.Response response = new CategoryDTO.Response();
-        BeanUtils.copyProperties(categoryRepository.save(req.toEntity()), response);
-        return response;
+        return convertToResponseDTO(categoryRepository.save(req.toEntity()));
     }
 
     public List<CategoryDTO.Response> read() {
@@ -37,10 +35,9 @@ public class CategoryService {
     }
 
     private CategoryDTO.Response convertToResponseDTO(Category category) {
-        return CategoryDTO.Response.builder()
-                .id(category.getId())
-                .name(category.getName())
-                .build();
+        CategoryDTO.Response response = new CategoryDTO.Response();
+        BeanUtils.copyProperties(category, response);
+        return response;
     }
 
     private Category findCategoryById(Long id) {
