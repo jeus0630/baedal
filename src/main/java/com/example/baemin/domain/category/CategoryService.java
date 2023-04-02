@@ -1,5 +1,7 @@
 package com.example.baemin.domain.category;
 
+import com.example.baemin.global.error.ErrorCode;
+import com.example.baemin.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -51,11 +53,12 @@ public class CategoryService {
     private Category updateCategory(
             Long id,
             CategoryDTO.Request req) {
+        findCategoryById(id);
         return categoryRepository.save(req.toEntity(id));
     }
 
     private Category findCategoryById(Long id) {
-        return categoryRepository.findById(id).get();
+        return categoryRepository.findById(id).orElseThrow(() -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND));
     }
 
     private void deleteCategory(Long id) {

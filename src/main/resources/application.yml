@@ -1,3 +1,9 @@
+springdoc:
+  packages-to-scan: com.example.baemin
+  paths-to-match: /**
+  swagger-ui:
+    path: /swagger-ui
+    display-request-duration: true
 server:
   port: 8080
   servlet:

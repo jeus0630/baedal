@@ -13,8 +13,8 @@ public class HealthCheckService {
 
     private final Environment environment;
 
-    public HealthCheckDTO.HealthCheckReadResponse read() {
-        return HealthCheckDTO.HealthCheckReadResponse.builder()
+    public HealthCheckDTO.Response read() {
+        return HealthCheckDTO.Response.builder()
                 .health("OK")
                 .activeProfiles(getActiveProfiles())
                 .build();
