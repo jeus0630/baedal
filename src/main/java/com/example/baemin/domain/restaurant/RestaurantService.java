@@ -1,6 +1,7 @@
 package com.example.baemin.domain.restaurant;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
 
     public RestaurantDTO.Response create(RestaurantDTO.Request req) {
-        return convertToResponseDTO(createRestaurantFromRequest(req));
+        return convertToResponseDTO(restaurantRepository.save(req.toEntity()));
     }
 
     public List<RestaurantDTO.Response> read() {
@@ -23,20 +24,11 @@ public class RestaurantService {
     }
 
     public RestaurantDTO.Response update(Long id, RestaurantDTO.Request req) {
-        return convertToResponseDTO(updateRestaurantFromRequest(id, req));
+        return convertToResponseDTO(restaurantRepository.save(req.toEntity(id)));
     }
 
     public RestaurantDTO.DeleteResponse delete(Long id) {
-        return convertToDeleteResponseDTO(deleteRestaurantFromRequest(id));
-    }
-
-    private Restaurant createRestaurantFromRequest(RestaurantDTO.Request req) {
-        return this.restaurantRepository.save(
-                Restaurant.builder()
-                        .name(req.getName())
-                        .location(req.getLocation())
-                        .build()
-        );
+        return convertToDeleteResponseDTO(deleteRestaurantFromRequest(findRestaurantById(id)));
     }
 
     private List<Restaurant> readRestaurantFromRequest() {
@@ -44,28 +36,22 @@ public class RestaurantService {
     }
 
     private RestaurantDTO.Response convertToResponseDTO(Restaurant restaurant) {
-        return RestaurantDTO.Response.builder()
-                .id(restaurant.getId())
-                .name(restaurant.getName())
-                .location(restaurant.getLocation())
-                .build();
+        RestaurantDTO.Response response = new RestaurantDTO.Response();
+        BeanUtils.copyProperties(restaurant, response);
+        return response;
     }
 
     private Restaurant findRestaurantById(Long id) {
         return this.restaurantRepository.findById(id).get();
     }
 
-    private Restaurant updateRestaurantFromRequest(Long id, RestaurantDTO.Request req) {
-        Restaurant restaurant = findRestaurantById(id);
-        restaurant.setName(req.getName());
-        restaurant.setLocation(req.getLocation());
-        return this.restaurantRepository.save(restaurant);
-    }
-
-    private Restaurant deleteRestaurantFromRequest(Long id) {
-        Restaurant restaurant = findRestaurantById(id);
-        restaurant.setIsActive(false);
-        return this.restaurantRepository.save(restaurant);
+    private Restaurant deleteRestaurantFromRequest(Restaurant restaurant) {
+        return restaurantRepository.save(Restaurant.builder()
+                .id(restaurant.getId())
+                .name(restaurant.getName())
+                .location(restaurant.getLocation())
+                .isActive(false)
+                .build());
     }
 
     private RestaurantDTO.DeleteResponse convertToDeleteResponseDTO(Restaurant restaurant) {
