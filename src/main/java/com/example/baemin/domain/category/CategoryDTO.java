@@ -2,6 +2,7 @@ package com.example.baemin.domain.category;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 public class CategoryDTO {
 
@@ -24,7 +25,7 @@ public class CategoryDTO {
     }
 
     @Getter
-    @Builder
+    @Setter
     public static class Response {
         private Long id;
         private String name;
