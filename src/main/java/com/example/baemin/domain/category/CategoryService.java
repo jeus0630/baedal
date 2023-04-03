@@ -2,7 +2,9 @@ package com.example.baemin.domain.category;
 
 import com.example.baemin.global.error.ErrorCode;
 import com.example.baemin.global.error.exception.BusinessException;
+import com.example.baemin.domain.food.FoodRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,13 +15,14 @@ import java.util.stream.Collectors;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final FoodRepository foodRepository;
 
     public CategoryDTO.Response create(CategoryDTO.Request req) {
-        return convertToResponseDTO(createCategory(req));
+        return convertToResponseDTO(categoryRepository.save(req.toEntity()));
     }
 
     public List<CategoryDTO.Response> read() {
-        return readCategory().stream().map(
+        return categoryRepository.findAll().stream().map(
                 category -> convertToResponseDTO(category)
         ).collect(Collectors.toList());
     }
@@ -27,34 +30,19 @@ public class CategoryService {
     public CategoryDTO.Response update(
             Long id,
             CategoryDTO.Request req) {
-        return convertToResponseDTO(updateCategory(id, req));
+        return convertToResponseDTO(categoryRepository.save(req.toEntity(id)));
     }
 
     public CategoryDTO.DeleteResponse delete(Long id) {
+        deleteFood();
         deleteCategory(id);
         return convertToDeleteResponseDTO(id);
     }
 
-    private Category createCategory(CategoryDTO.Request req) {
-        return categoryRepository.save(req.toEntity());
-    }
-
     private CategoryDTO.Response convertToResponseDTO(Category category) {
-        return CategoryDTO.Response.builder()
-                .id(category.getId())
-                .name(category.getName())
-                .build();
-    }
-
-    private List<Category> readCategory() {
-        return categoryRepository.findAll();
-    }
-
-    private Category updateCategory(
-            Long id,
-            CategoryDTO.Request req) {
-        findCategoryById(id);
-        return categoryRepository.save(req.toEntity(id));
+        CategoryDTO.Response response = new CategoryDTO.Response();
+        BeanUtils.copyProperties(category, response);
+        return response;
     }
 
     private Category findCategoryById(Long id) {
@@ -69,5 +57,9 @@ public class CategoryService {
         return CategoryDTO.DeleteResponse.builder()
                 .id(id)
                 .build();
+    }
+
+    private void deleteFood() {
+        foodRepository.findAll().stream().forEach(food -> foodRepository.delete(food));
     }
 }

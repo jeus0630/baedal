@@ -3,6 +3,7 @@ package com.example.baemin.domain.restaurant;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 public class RestaurantDTO {
 
@@ -16,11 +17,28 @@ public class RestaurantDTO {
         @Schema(description = "레스토랑 위치", example = "서울시 99로", requiredMode = Schema.RequiredMode.REQUIRED)
         private String location;
 
+        public Restaurant toEntity() {
+            return Restaurant.builder()
+                    .name(name)
+                    .location(location)
+                    .isActive(true)
+                    .build();
+        }
+
+        public Restaurant toEntity(Long id) {
+            return Restaurant.builder()
+                    .id(id)
+                    .name(name)
+                    .location(location)
+                    .isActive(true)
+                    .build();
+        }
+        
     }
 
     @Schema(name = "RestaurantResponseDTO")
     @Getter
-    @Builder
+    @Setter
     public static class Response {
 
         @Schema(description = "레스토랑 id", example = "1")

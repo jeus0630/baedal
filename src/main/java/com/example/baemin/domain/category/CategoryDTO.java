@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 public class CategoryDTO {
 
@@ -31,7 +32,7 @@ public class CategoryDTO {
 
     @Schema(name = "CategoryResponseDTO")
     @Getter
-    @Builder
+    @Setter
     public static class Response {
 
         @Schema(description = "카테고리 id", example = "1")

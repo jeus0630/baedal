@@ -1,8 +1,11 @@
 package com.example.baemin.domain.food;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import com.example.baemin.domain.category.Category;
+import com.example.baemin.domain.restaurant.Restaurant;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 public class FoodDto {
 
@@ -22,11 +25,32 @@ public class FoodDto {
         @Schema(description = "레스토랑 id", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
         private Long restaurantId;
 
+        public Food toEntity(Category category, Restaurant restaurant) {
+            return Food.builder()
+                    .name(name)
+                    .price(price)
+                    .category(category)
+                    .restaurant(restaurant)
+                    .isActive(true)
+                    .build();
+        }
+
+        public Food toEntity(Long id, Category category, Restaurant restaurant) {
+            return Food.builder()
+                    .id(id)
+                    .name(name)
+                    .price(price)
+                    .category(category)
+                    .restaurant(restaurant)
+                    .isActive(true)
+                    .build();
+        }
+        
     }
 
     @Schema(name = "FoodResponseDTO")
     @Getter
-    @Builder
+    @Setter
     public static class Response {
 
         @Schema(description = "음식 id", example = "1")
