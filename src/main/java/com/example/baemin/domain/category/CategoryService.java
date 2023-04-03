@@ -1,5 +1,7 @@
 package com.example.baemin.domain.category;
 
+import com.example.baemin.global.error.ErrorCode;
+import com.example.baemin.global.error.exception.BusinessException;
 import com.example.baemin.domain.food.FoodRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -44,7 +46,7 @@ public class CategoryService {
     }
 
     private Category findCategoryById(Long id) {
-        return categoryRepository.findById(id).get();
+        return categoryRepository.findById(id).orElseThrow(() -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND));
     }
 
     private void deleteCategory(Long id) {
