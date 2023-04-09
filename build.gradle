@@ -22,6 +22,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.0.4'
     implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.0.4'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '3.0.5'
 }
 
 tasks.named('test') {
